@@ -5,11 +5,6 @@ import { Architects_Daughter } from "next/font/google";
 import Sidebar from "@/components/Siderbar";
 import Header from "@/components/Header";
 
-export const handwriting = Architects_Daughter({
-  subsets: ["latin"],
-  weight: "400",
-});
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
