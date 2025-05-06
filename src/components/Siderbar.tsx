@@ -17,7 +17,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-60 h-screen bg-gray-800 text-white flex flex-col">
+    <div className="w-60 md:w-60 h-screen bg-gray-800 text-white flex flex-col">
       <List disablePadding>
         {menuItems.map((item) => (
           <ListItem key={item.label} disablePadding sx={{ width: "100%" }}>

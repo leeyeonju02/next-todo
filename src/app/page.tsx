@@ -1,7 +1,9 @@
-// src/app/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+import { Architects_Daughter } from "next/font/google";
+
+const handwriting = Architects_Daughter({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
   const [lastMenu, setLastMenu] = useState<string>("없음");
@@ -14,12 +16,12 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-3xl font-bold mb-4">오늘도 화이팅!</h1>
-      <p className="mb-4">마지막으로 사용한 메뉴: {lastMenu}</p>
-      <button className="bg-blue-500 text-white px-4 py-2 rounded">
-        로그인
-      </button>
+    <div className="flex flex-col items-center justify-center h-full p-4">
+      <h1
+        className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 ${handwriting.className} overflow-hidden border-r-2 animate-handwriting text-center`}
+      >
+        A place that makes me complete with plans and records
+      </h1>
     </div>
   );
 }
