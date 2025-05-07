@@ -21,9 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <div className="flex min-h-screen">
-          <div className="w-60">
-            <Sidebar />
-          </div>
+          <Sidebar />
+
           <div className="flex flex-col flex-1">
             <div className="h-16">
               <Header />

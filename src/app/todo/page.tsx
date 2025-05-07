@@ -20,7 +20,7 @@ export default function TodoPage() {
   return (
     <div style={{ padding: "16px" }}>
       <TodoTabs selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
-      <TodoInput input={input} setInput={setInput} onAdd={addTodo} />
+      <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
       {selectedNav === 4 ? (
         <CalendarView todos={filteredTodos} />
       ) : (

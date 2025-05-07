@@ -1,23 +1,36 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Todo } from "../types/todo";
+import {
+  fetchTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo as deleteTodoApi,
+} from "@/lib/api/todoApi";
 
 export function useTodo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState<string>("");
   const [selectedNav, setSelectedNav] = useState(0);
 
-  const addTodo = () => {
-    if (!input.trim()) return;
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: input,
+  const addTodo = async (
+    text: string,
+    dueDate: string | null,
+    tag: string | null
+  ) => {
+    const newTodo: Omit<Todo, "id"> = {
+      text,
       complete: 0,
-      dueDate: null, // 기본 null
-      tag: null, // 기본 null
+      dueDate,
+      tag,
     };
-    setTodos([...todos, newTodo]);
-    setInput("");
+
+    try {
+      const createdTodo = await createTodo(newTodo);
+      setTodos((prevTodos) => [...prevTodos, createdTodo]);
+    } catch (error) {
+      console.error("Failed to create todo:", error);
+    }
   };
 
   const toggleComplete = (id: number): void => {
@@ -32,6 +45,9 @@ export function useTodo() {
 
   const deleteTodo = (id: number) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    deleteTodoApi(id).catch((error) =>
+      console.error("Failed to delete todo:", error)
+    );
   };
 
   const filteredTodos = todos.filter((todo) => {
@@ -41,6 +57,19 @@ export function useTodo() {
     if (selectedNav === 3) return todo.tag !== null; // Tag 있는 항목만
     return true;
   });
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      try {
+        const todosFromApi = await fetchTodos();
+        setTodos(todosFromApi);
+      } catch (error) {
+        console.error("Failed to fetch todos:", error);
+      }
+    };
+
+    loadTodos();
+  }, []);
 
   return {
     todos,
