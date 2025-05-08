@@ -39,21 +39,25 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
     setAnchorEl(null);
   };
 
+  // 날짜 포맷팅 (간결하게 표시)
+  const formatDate = (date: Dayjs) => {
+    return date.format("MM/DD HH:mm");
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? "palette-popover" : undefined;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div style={{ padding: "16px" }}>
+      <div style={{ padding: "8px 0" }}>
         <Box
           display="flex"
           alignItems="center"
-          gap={{ xs: 0.5, sm: 1, md: 2 }}
           flexWrap="wrap"
           sx={{
             width: "100%",
             maxWidth: "100%",
-            p: 1,
+            p: { xs: 0.5, sm: 1 },
             borderRadius: 1,
           }}
         >
@@ -68,82 +72,99 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
               borderRadius: 1,
               pl: 1,
               pr: 1,
+              fontSize: { xs: "0.875rem", sm: "1rem" },
+            }}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleAdd();
+              }
             }}
           />
 
-          {dueDate && (
-            <Typography
-              variant="body2"
-              sx={{
-                color: "gray",
-                maxWidth: "100px",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {dueDate.format("YYYY-MM-DD HH:mm")}
-            </Typography>
-          )}
+          <Box display="flex" alignItems="center" ml={0.5}>
+            {dueDate && (
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "gray",
+                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                  mr: 0.5,
+                  display: { xs: "none", sm: "block" },
+                }}
+              >
+                {formatDate(dueDate)}
+              </Typography>
+            )}
 
-          {tag && (
-            <Box
-              sx={{
-                width: 20,
-                height: 20,
-                bgcolor: tag,
-                borderRadius: "50%",
-                border: "1px solid #ccc",
+            {tag && (
+              <Box
+                sx={{
+                  width: { xs: 16, sm: 20 },
+                  height: { xs: 16, sm: 20 },
+                  bgcolor: tag,
+                  borderRadius: "50%",
+                  border: "1px solid #ccc",
+                  mr: 0.5,
+                }}
+              />
+            )}
+
+            <IconButton
+              onClick={() => setOpenDatePicker(true)}
+              size="small"
+              sx={{ p: { xs: 0.5, sm: 1 } }}
+            >
+              <CalendarTodayIcon fontSize="small" />
+            </IconButton>
+            <DateTimePicker
+              open={openDatePicker}
+              onClose={() => setOpenDatePicker(false)}
+              value={dueDate}
+              onChange={setDueDate}
+              slotProps={{
+                textField: { sx: { display: "none" } },
               }}
             />
-          )}
 
-          <IconButton
-            onClick={() => setOpenDatePicker(true)}
-            sx={{ flexShrink: 0 }}
-          >
-            <CalendarTodayIcon />
-          </IconButton>
-          <DateTimePicker
-            open={openDatePicker}
-            onClose={() => setOpenDatePicker(false)}
-            value={dueDate}
-            onChange={setDueDate}
-            slotProps={{
-              textField: { sx: { display: "none" } },
-            }}
-          />
+            <IconButton
+              onClick={handlePaletteClick}
+              size="small"
+              sx={{ p: { xs: 0.5, sm: 1 } }}
+            >
+              <PaletteIcon fontSize="small" />
+            </IconButton>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={() => setAnchorEl(null)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            >
+              <Box display="flex" p={1} gap={1}>
+                {["red", "green", "blue", "yellow", "purple"].map((color) => (
+                  <Box
+                    key={color}
+                    sx={{
+                      width: 24,
+                      height: 24,
+                      bgcolor: color,
+                      borderRadius: "50%",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleTagSelect(color)}
+                  />
+                ))}
+              </Box>
+            </Popover>
 
-          <IconButton onClick={handlePaletteClick} sx={{ flexShrink: 0 }}>
-            <PaletteIcon />
-          </IconButton>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={() => setAnchorEl(null)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          >
-            <Box display="flex" p={1} gap={1}>
-              {["red", "green", "blue", "yellow", "purple"].map((color) => (
-                <Box
-                  key={color}
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    bgcolor: color,
-                    borderRadius: "50%",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleTagSelect(color)}
-                />
-              ))}
-            </Box>
-          </Popover>
-
-          <IconButton onClick={handleAdd} sx={{ flexShrink: 0 }}>
-            <AddIcon />
-          </IconButton>
+            <IconButton
+              onClick={handleAdd}
+              size="small"
+              sx={{ p: { xs: 0.5, sm: 1 } }}
+            >
+              <AddIcon fontSize="small" />
+            </IconButton>
+          </Box>
         </Box>
       </div>
     </LocalizationProvider>

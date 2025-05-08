@@ -18,7 +18,9 @@ export default function TodoPage() {
   } = useTodo();
 
   return (
-    <div className="p-4 w-full max-w-full overflow-x-hidden">
+    // w-full과 max-w-full로 컨테이너가 부모 요소를 넘지 않도록 설정
+    // box-border를 추가해 padding이 너비에 포함되도록 함
+    <div className="p-2 sm:p-4 w-full max-w-full overflow-hidden box-border">
       <TodoTabs selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
       <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
       {selectedNav === 4 ? (
