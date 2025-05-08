@@ -15,6 +15,9 @@ export default function TodoPage() {
     selectedNav,
     setSelectedNav,
     filteredTodos,
+    isDropdownVisible,
+    selectedTagColor,
+    setSelectedTagColor,
   } = useTodo();
 
   return (
@@ -31,6 +34,9 @@ export default function TodoPage() {
             todos={filteredTodos}
             onToggle={toggleComplete}
             onDelete={deleteTodo}
+            isDropdownVisible={isDropdownVisible}
+            selectedTagColor={selectedTagColor}
+            setSelectedTagColor={setSelectedTagColor}
           />
         )}
       </div>
