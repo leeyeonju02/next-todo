@@ -17,10 +17,9 @@ export default function Header() {
 
   return (
     <header
-      className={`p-4 text-xl md:text-2xl flex flex-col md:flex-row justify-between items-center ${cinzel.className}`}
+      className={`p-4 text-xl flex justify-center items-center ${cinzel.className}`}
     >
-      <div className="flex-1 text-center md:text-left">{formattedDate}</div>
-      <div className="flex-none mt-2 md:mt-0">매우 맑음 20도</div>
+      <div className="text-center">{formattedDate}</div>
     </header>
   );
 }
