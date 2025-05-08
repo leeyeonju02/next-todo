@@ -112,6 +112,8 @@ export function useTodo() {
     setSelectedNav,
     filteredTodos,
     isDropdownVisible,
+    selectedTagColor,
+    setSelectedTagColor,
   };
 }
 
