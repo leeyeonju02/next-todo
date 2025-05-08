@@ -18,20 +18,22 @@ export default function TodoPage() {
   } = useTodo();
 
   return (
-    // w-full과 max-w-full로 컨테이너가 부모 요소를 넘지 않도록 설정
-    // box-border를 추가해 padding이 너비에 포함되도록 함
-    <div className="p-2 sm:p-4 w-full max-w-full overflow-hidden box-border">
-      <TodoTabs selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
-      <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
-      {selectedNav === 4 ? (
-        <CalendarView todos={filteredTodos} />
-      ) : (
-        <TodoList
-          todos={filteredTodos}
-          onToggle={toggleComplete}
-          onDelete={deleteTodo}
-        />
-      )}
+    <div className="w-full max-w-full box-border overflow-hidden flex flex-col">
+      <div className="w-full">
+        <TodoTabs selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
+      </div>
+      <div className="w-full px-1 sm:px-4">
+        <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
+        {selectedNav === 4 ? (
+          <CalendarView todos={filteredTodos} />
+        ) : (
+          <TodoList
+            todos={filteredTodos}
+            onToggle={toggleComplete}
+            onDelete={deleteTodo}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -32,3 +32,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* TodoTabs 반응형 스타일 개선 */
+@media (max-width: 480px) {
+  .MuiTab-root {
+    text-transform: none !important;
+  }
+}
