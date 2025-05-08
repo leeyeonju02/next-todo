@@ -10,7 +10,7 @@ interface TodoListProps {
 
 export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
   return (
-    <List>
+    <List sx={{ width: "100%", maxWidth: "100%" }}>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

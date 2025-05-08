@@ -22,12 +22,13 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <div className="flex min-h-screen">
           <Sidebar />
-
           <div className="flex flex-col flex-1">
             <div className="h-16">
               <Header />
             </div>
-            <main className="flex-1 p-4">{children}</main>
+            <main className="flex-1 p-4 max-w-screen-md mx-auto">
+              {children}
+            </main>
           </div>
         </div>
       </body>

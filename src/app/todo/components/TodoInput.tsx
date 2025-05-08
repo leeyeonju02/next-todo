@@ -48,16 +48,22 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
         <Box
           display="flex"
           alignItems="center"
-          gap={2}
-          sx={{ background: "#f5f5f5", p: 1, borderRadius: 1 }}
+          gap={{ xs: 0.5, sm: 1, md: 2 }}
+          flexWrap="wrap"
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            p: 1,
+            borderRadius: 1,
+          }}
         >
-          {/* Input */}
           <InputBase
             placeholder="할 일을 입력하세요"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             sx={{
-              flex: 1,
+              flex: "1 1 0",
+              minWidth: 0,
               background: "#fff",
               borderRadius: 1,
               pl: 1,
@@ -65,22 +71,26 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
             }}
           />
 
-          {/* 선택된 날짜 표시 */}
           {dueDate && (
             <Typography
               variant="body2"
-              sx={{ color: "gray", minWidth: "120px" }}
+              sx={{
+                color: "gray",
+                maxWidth: "100px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
             >
               {dueDate.format("YYYY-MM-DD HH:mm")}
             </Typography>
           )}
 
-          {/* 선택된 태그 색상 표시 */}
           {tag && (
             <Box
               sx={{
-                width: 24,
-                height: 24,
+                width: 20,
+                height: 20,
                 bgcolor: tag,
                 borderRadius: "50%",
                 border: "1px solid #ccc",
@@ -88,8 +98,10 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
             />
           )}
 
-          {/* 달력 아이콘 */}
-          <IconButton onClick={() => setOpenDatePicker(true)} color="inherit">
+          <IconButton
+            onClick={() => setOpenDatePicker(true)}
+            sx={{ flexShrink: 0 }}
+          >
             <CalendarTodayIcon />
           </IconButton>
           <DateTimePicker
@@ -98,12 +110,11 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
             value={dueDate}
             onChange={setDueDate}
             slotProps={{
-              textField: { sx: { display: "none" } }, // input 숨김
+              textField: { sx: { display: "none" } },
             }}
           />
 
-          {/* 팔레트 아이콘 */}
-          <IconButton onClick={handlePaletteClick} color="inherit">
+          <IconButton onClick={handlePaletteClick} sx={{ flexShrink: 0 }}>
             <PaletteIcon />
           </IconButton>
           <Popover
@@ -111,10 +122,7 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
             open={open}
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           >
             <Box display="flex" p={1} gap={1}>
               {["red", "green", "blue", "yellow", "purple"].map((color) => (
@@ -133,8 +141,7 @@ export default function TodoInput({ input, setInput, addTodo }: Props) {
             </Box>
           </Popover>
 
-          {/* + 버튼 */}
-          <IconButton onClick={handleAdd} color="inherit">
+          <IconButton onClick={handleAdd} sx={{ flexShrink: 0 }}>
             <AddIcon />
           </IconButton>
         </Box>

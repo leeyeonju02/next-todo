@@ -19,6 +19,7 @@ export default function TodoTabs({
       variant="fullWidth"
       indicatorColor="primary"
       textColor="primary"
+      sx={{ width: "100%", maxWidth: "100%" }}
     >
       {navOptions.map((label, index) => (
         <Tab key={index} label={label} />

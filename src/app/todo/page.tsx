@@ -18,7 +18,7 @@ export default function TodoPage() {
   } = useTodo();
 
   return (
-    <div style={{ padding: "16px" }}>
+    <div className="p-4 w-full max-w-full overflow-x-hidden">
       <TodoTabs selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
       <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
       {selectedNav === 4 ? (

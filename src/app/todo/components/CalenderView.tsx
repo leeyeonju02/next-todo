@@ -1,5 +1,6 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import "../../../styles/custom-calendar.css";
 import { Todo } from "../types/todo";
 import { Box, Typography } from "@mui/material";
 
@@ -45,7 +46,7 @@ export default function CalendarView({ todos }: CalendarViewProps) {
   };
 
   return (
-    <Box>
+    <Box sx={{ width: "100%", maxWidth: "100%" }}>
       <Calendar
         tileContent={renderTileContent}
         onClickDay={(value) => {
@@ -59,6 +60,7 @@ export default function CalendarView({ todos }: CalendarViewProps) {
             }개`
           );
         }}
+        className="custom-calendar" // ✅ 클래스네임 추가
       />
     </Box>
   );

@@ -23,9 +23,13 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
       sx={{
         display: "flex",
         alignItems: "center",
+        flexWrap: "wrap",
+        gap: 1,
         p: 1,
         mb: 1,
         borderLeft: `4px solid ${todo.tag || "transparent"}`,
+        width: "100%",
+        maxWidth: "100%",
       }}
     >
       <IconButton onClick={onToggle}>
@@ -35,7 +39,8 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
           <RadioButtonUncheckedIcon />
         )}
       </IconButton>
-      <Box flex="1">
+
+      <Box flex="1 1 0" minWidth={0}>
         <ListItemText
           primary={
             <Typography
@@ -48,22 +53,29 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
             </Typography>
           }
           secondary={
-            <>
-              {todo.dueDate && (
-                <Typography variant="body2" color="textSecondary">
-                  마감일: {todo.dueDate}
-                </Typography>
-              )}
-            </>
+            todo.dueDate && (
+              <Typography
+                variant="body2"
+                sx={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxWidth: "150px",
+                }}
+              >
+                마감일: {todo.dueDate}
+              </Typography>
+            )
           }
         />
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+
+      <Box display="flex" alignItems="center" gap={1}>
         {todo.complete > 0 && (
           <LinearProgress
             variant="determinate"
             value={todo.complete}
-            sx={{ width: 50, height: 6, borderRadius: 3 }}
+            sx={{ width: { xs: 40, sm: 50 }, height: 6, borderRadius: 3 }}
           />
         )}
         <IconButton onClick={onDelete}>
